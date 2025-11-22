@@ -1,0 +1,40 @@
+
+backend/node_modules/
+backend/.env
+backend/*.log
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/pids/
+backend/*.pid
+backend/*.pid.lock
+backend/coverage/
+backend/dist/
+backend/build/
+
+
+frontend/node_modules/
+frontend/.env
+frontend/build/             # React/Vite build folder
+frontend/dist/              # Vite/Vue/etc.
+frontend/coverage/
+frontend/*.log
+
+
+.DS_Store
+Thumbs.db
+
+
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+yarn.lock
+pnpm-lock.yaml
+
+# Global ignores
+node_modules/
+package.json
+package-lock.json
+

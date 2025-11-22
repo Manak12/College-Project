@@ -1,0 +1,70 @@
+[1] Initial Setup (one-time per dev)
+
+    Clone the repo locally:
+        git clone <repo-url>
+        cd <repo-name>
+
+
+    Set your identity:
+        git config user.name  "Your Name"
+        git config user.email "your@email"
+
+[2] Pick a Issue(Ticket)
+
+    Check the Issues tab for an assigned ticket (e.g., #14).
+    Read the description, acceptance criteria, and any discussion.
+
+[3] Create a Branch [Locally]
+    Pull latest master branch:
+        git checkout master
+        git pull origin master
+
+
+    Create and switch to a new branch named after the ticket:
+        git checkout -b VDV-14      //here give the branch name as VDV-(issue number in the git).
+
+
+[4] Develop & Commit
+    Write code, add tests locally
+    Stage and commit changes frequently:
+        git add .
+        git commit -m "<short message>" 
+
+[5] Push Branch to Remote
+    git push -u origin VDV-14  // incase if this branch not exist on remote.
+    git push origin VDV-14     // incase if this branch exist on remote.
+
+[6] Create A Pull Request (PR)
+    On GitHub, click Compare & pull request.
+    Add title  // Must include #14(i.e issue number with "#" symbol).
+
+
+    Some Message Suggestion 
+    [Closes #14: implement authentication flow,
+     Resolves #14: add OAuth support,
+     Fix #14: handle invalid tokens,
+     Resolved #14: finalize login API]
+
+    **Use the above suffixes to auto-close the issue when merged.**
+    
+    **Review diff, ensure base is master.**
+
+    Add a clear PR title/description and confirm the Fixes #14 reference.
+
+[7] Merge 
+    Merge the PR.
+
+[8] Sync Regularly
+    Even between tasks, keep master current:
+        git checkout master
+        git pull origin master
+
+_______________________________________________________________________________________
+
+[IMP] Key Points to Remember
+
+- One branch per issue/ticket.
+- Meaningful commit messages with the issue number and a closing keyword.
+- Always pull master before starting a new branch to avoid merge conflicts.
+- Use GitHub Issues & Projects to track work, not ad-hoc messages.
+- Following these steps keeps history clean, issues auto-closed, and everyone in sync.
