@@ -37,8 +37,12 @@ ViyaVichar is built with the assumption that classes are actively ongoing, and s
 
 ##  Tech Stack
 
-- **Frontend**: React 18 with TypeScript
-- **Styling**: Tailwind CSS v4.0 with custom design system
+- **Frontend**: React 18 with Vite
+- **Styling**: Tailwind CSS v4.0 with Shadcn/ui
+- **Backend**: Node.js with Express
+- **Database**: MongoDB
+- **Real-time**: Socket.IO
+- **Authentication**: JWT with Cookies
 - **UI Components**: Shadcn/ui component library
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
@@ -59,6 +63,7 @@ The platform uses a carefully crafted color palette optimized for educational en
 ### Prerequisites
 - Node.js (v16 or higher)
 - npm or yarn package manager
+- MongoDB installed locally or a MongoDB Atlas connection string
 
 ### Installation
 
@@ -170,11 +175,11 @@ backend/
 │   ├── models/
 │   │   ├── lectureModel.js     # Class/lecture data model
 │   │   ├── questionModel.js    # Question and answer data model
-│   │   └── userModel.js        # User (student/faculty) data model
+│   │   ├── userModel.js        # User (student/faculty) data model
 │   ├── routes/
 │   │   ├── authRoutes.js       # Authentication endpoints
 │   │   ├── lectureRoutes.js    # Class management endpoints
-│   │   └── questionRoutes.js   # Question management endpoints
+│   │   ├── questionRoutes.js   # Question management endpoints
 │   └── server.js              # Express server configuration
 ├── .env                       # Environment variables
 └── babel.config.js            # Babel configuration
@@ -183,15 +188,16 @@ backend/
 
 ##  Current State
 
-**Version**: Frontend Prototype (v1.0)
-**Status**: Functional frontend with mock data
-**Database**: Currently using in-memory state management
+**Version**: Beta v1.1
+**Status**: Functional MVP with Real-time Features
+**Database**: MongoDB
+**Real-time**: Socket.IO enabled for instant question updates and answers
 
-### Mock Data Features
-- Sample classes with different subjects and instructors
-- Simulated live/offline class states
-- Student participation metrics
-- Question tracking system
+### Features Implemented
+- **Authentication**: Secure login/signup for Students and Faculty
+- **Live Class**: Real-time question asking and answering
+- **Dashboard**: Class management and history
+- **Question Management**: Priority flagging, duplicate detection, and status tracking
 
 ## Limitations & Future Enhancements
 

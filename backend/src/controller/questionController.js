@@ -48,57 +48,12 @@ export async function createQuestion(req, res) {
         });
     } catch (err) {
         console.error("Error creating question:", err);
-        return res.status(500).json({ error: "Internal server error" });
-    }
-}
-
-export async function updateQuestionStatus(req, res) {
-    try {
-        const { id } = req.params;
-        const { status, answer } = req.body;
-
-        if (!status) {
-            return res.status(400).json({ error: "status is required" });
-        }
-
-        const allowed = ["answered", "unanswered"];
-        if (!allowed.includes(status)) {
-            return res.status(400).json({ error: `Status must be one of: ${allowed.join(", ")}` });
-        }
-
-        const updateData = {
-            status,
-            answeredAt: status === "answered" ? new Date() : null
-        };
-
-        if (answer !== undefined) {
-            updateData.answer = answer;
-        }
-
-        const question = await Question.findByIdAndUpdate(
-            id,
-            updateData,
-            { new: true }
-        );
-
-        if (!question) {
-            return res.status(404).json({ error: "Question not found" });
-        }
-
-        res.status(200).json({
-            message: "Question status updated successfully",
-            question
-        });
-    } catch (err) {
-        console.error("Error updating question status:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 }
 
 export async function clearQuestion(req, res) {
     try {
-        //only a teacher can access this
-        // question id is from url parameters
         const { id } = req.params;
 
         const question = await Question.findByIdAndUpdate(
@@ -120,7 +75,6 @@ export async function clearQuestion(req, res) {
         res.status(500).json({ error: "Internal server error" });
     }
 }
-
 
 export async function getQuestions(req, res) {
     try {
@@ -161,6 +115,35 @@ export async function updateQuestion(req, res) {
         }
         res.status(200).json({ message: "Question updated successfully", question });
     } catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export async function updateQuestionStatus(req, res) {
+    try {
+        const { id } = req.params;
+        const { status, answer } = req.body;
+
+        const question = await Question.findByIdAndUpdate(
+            id,
+            { status, answer, answeredAt: new Date() },
+            { new: true }
+        ).populate("studentId", "name email");
+
+        if (!question) {
+            return res.status(404).json({ error: "Question not found" });
+        }
+
+        // Emit socket event to the lecture room
+        if (question.lectureId) {
+            io.to(question.lectureId.toString()).emit("question_answered", { question });
+        } else {
+            io.emit("question_answered", { question });
+        }
+
+        res.status(200).json({ message: "Question status updated", question });
+    } catch (err) {
+        console.error("Error updating question status:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 }
